@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./output.css" rel="stylesheet">
+
+    <title>Supplier Registry</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    
+    <!-- Cropper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+
+</head>
+<body class="font-sans antialiased h-full">
+    <!-- resources/views/layouts/navigation.blade.php -->
+<nav class="bg-white border-b border-gray-200 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="http://20.188.121.247/" class="text-xl font-bold text-gray-800">
+                        Supplier Registry
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:ml-10 sm:flex">
+                    
+                </div>
+            </div>
+
+            <!-- Auth Links -->
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <div class="flex h-full items-center space-x-8">
+                        <a href="http://20.188.121.247/contact" 
+                            class="inline-flex items-center h-full px-1 border-b-2 {{ request()->routeIs('contact') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            Contact Us
+                        </a>
+                        <a href="http://20.188.121.247/login" 
+                            class="inline-flex items-center h-full px-1 border-b-2 {{ request()->routeIs('login') ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700' }}">
+                            Login
+                        </a>
+                    </div>
+                    <a href="http://20.188.121.247/supplier/register" 
+                        class="ml-8 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Register as Supplier
+                    </a>
+                
+            </div>
+
+            
+        </div>
+    </div>
+</nav>
+    
+    <!-- Page Content -->
+    <main>
+        <div class="min-h-screen bg-gradient-to-b from-indigo-100 to-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12">
+                <!-- App Logo/Name -->
+                <div class="mb-12 mt-40">
+                    <h1 class="text-5xl font-bold text-indigo-900 mb-4">
+                        Supplier Registry
+                    </h1>
+                </div>
+
+                <!-- Main Actions -->
+                <div class="flex flex-wrap justify-center gap-8">
+                    <!-- Supplier Registration -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow w-full max-w-sm">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">No Account Yet?</h2>
+                        <p class="text-gray-600 mb-6">Register your supplier account to manage your information</p>
+                        <a href="http://20.188.121.247/supplier/register" 
+                        class="inline-block w-full py-3 px-6 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md font-medium transition-colors">
+                            Register
+                        </a>
+                    </div>
+
+                    <!-- Supplier Login -->
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow w-full max-w-sm">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Already Have an Account?</h2>
+                        <p class="text-gray-600 mb-6">Access your supplier dashboard and update your information</p>
+                        <a href="http://20.188.121.247/login" 
+                        class="inline-block w-full py-3 px-6 text-center text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition-colors">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

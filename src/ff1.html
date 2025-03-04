@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Registry Launch</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #7a0000, #ff6600, #1a0000);
+            color: #ffeecc;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: opacity 1.5s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+            transition: opacity 1.5s ease;
+        }
+        .launch-btn {
+            background: linear-gradient(45deg, #ffcc00, #ff4500);
+            border: 3px solid #ffffff;
+            width: 160px;
+            height: 160px;
+            font-size: 30px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 25px rgba(255, 165, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            padding: 10px;
+        }
+        .launch-btn:hover {
+            background: linear-gradient(45deg, #ff9900, #cc3300);
+            box-shadow: 0 7px 30px rgba(255, 140, 0, 1);
+        }
+        .launch-btn:active {
+            transform: translate(-50%, -50%) scale(0.9);
+            box-shadow: 0 3px 15px rgba(255, 165, 0, 0.8);
+        }
+        .fade-out {
+            opacity: 0;
+            transform: scale(1.2);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            font-size: 40vh;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .visible {
+            opacity: 1 !important;
+        }
+        .loading-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 90vh;
+            height: 90vh;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            border: 8px solid rgba(255, 165, 0, 0.3);
+            border-top: 8px solid white;
+            opacity: 0;
+            visibility: hidden;
+        }
+        @keyframes spinner {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .show-loading {
+            opacity: 1;
+            visibility: visible;
+            animation: spinner 1s linear infinite;
+        }
+        .explosion {
+            position: absolute;
+            width: 120vw;
+            height: 120vh;
+            background: radial-gradient(circle, rgba(255, 140, 0, 1) 10%, rgba(200, 80, 0, 0.8) 40%, rgba(0, 0, 0, 0) 70%);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .show-explosion {
+            opacity: 1;
+            transform: scale(3);
+        }
+        @keyframes fireworks {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-150px) scale(2.5); }
+        }
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .spark {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ffbb99;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fireworks 2s linear forwards;
+        }
+        h1, p {
+            animation: text-pop 1.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <button class="launch-btn" id="launchBtn" onclick="startCountdown()" style="font-size: 25vh; width: 50vh; height: 50vh;">🚀</button>
+        <audio id="fanfare" src="Adam.mp3"></audio>
+    </div>
+    <div class="loading-circle" id="loadingCircle"></div>
+    <div class="countdown" id="countdown"></div>
+    <div class="explosion" id="explosion"></div>
+    <div class="fireworks" id="fireworks"></div>
+    
+    <img id="screenshot" src="screenshot.PNG" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0; transition: opacity 1.5s ease;">
+    <script>
+        function startCountdown() {
+            let countdownElement = document.getElementById('countdown');
+            let loadingCircle = document.getElementById('loadingCircle');
+            let container = document.getElementById('container');
+            let launchBtn = document.getElementById('launchBtn');
+            let count = 3;
+            
+            countdownElement.classList.add('visible');
+            countdownElement.innerText = count;
+            container.classList.add('fade-out');
+            launchBtn.style.display = 'none';
+            loadingCircle.classList.add('show-loading');
+            
+            let interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownElement.innerText = count;
+                } else {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = `<span style="font-size: 10vh;">Launching...</span>`;
+                    setTimeout(() => {
+                        countdownElement.classList.add('fade-out');
+                        playFanfare();
+                    }, 500);
+                }
+            }, 1000);
+        }
+
+        function playFanfare() {
+            let audio = document.getElementById('fanfare');
+            let body = document.body;
+            let explosion = document.getElementById('explosion');
+            let fireworks = document.getElementById('fireworks');
+            
+            audio.play();
+            explosion.classList.add('show-explosion');
+            launchFireworks();
+            launchConfetti();
+
+            // After 1.5s, fade in the screenshot
+            setTimeout(() => {
+                screenshot.style.opacity = "1"; // Fade in the screenshot
+            }, 1500);
+
+            // After 3s, redirect to the real webpage
+            setTimeout(() => {
+                // window.location.href = 'http://20.188.121.247/';
+                window.location.href = "https://ladpc4.github.io/fanfare/welcome.html";
+            }, 5000);
+            
+        }
+
+        // function playFanfare() {
+        //     let audio = document.getElementById('fanfare');
+        //     let explosion = document.getElementById('explosion');
+        //     let fireworks = document.getElementById('fireworks');
+        //     let screenshot = document.getElementById('screenshot');
+        //     let whiteOverlay = document.getElementById('whiteOverlay');
+
+        //     audio.play();
+        //     explosion.classList.add('show-explosion');
+        //     launchFireworks();
+        //     launchConfetti();
+
+        //     // Fade in the screenshot smoothly
+        //     setTimeout(() => {
+        //         screenshot.style.opacity = "1";
+        //     }, 800);
+
+        //     // Show the white overlay before fading the screenshot
+        //     setTimeout(() => {
+        //         whiteOverlay.style.opacity = "1";
+        //     }, 2500);
+
+        //     // Redirect once the white screen is fully visible
+        //     setTimeout(() => {
+        //         window.location.href = 'http://20.188.121.247/';
+        //     }, 4000);
+        // }
+
+        function launchFireworks() {
+            for (let i = 0; i < 50; i++) {
+                let spark = document.createElement('div');
+                spark.classList.add('spark');
+                spark.style.left = Math.random() * 100 + 'vw';
+                spark.style.top = Math.random() * 100 + 'vh';
+                spark.style.backgroundColor = `hsl(${Math.random() * 60 + 200}, 100%, 60%)`;
+                spark.style.animationDelay = (Math.random() * 1) + 's';
+                document.getElementById('fireworks').appendChild(spark);
+                setTimeout(() => { spark.remove(); }, 2000);
+            }
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 60 + 200}, 100%, 70%)`;
+                confetti.style.animationDelay = (Math.random() * 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => { confetti.remove(); }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
