@@ -145,7 +145,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: white;
+            background: black;
             opacity: 0;
             pointer-events: none;
             transition: opacity 1.5s ease-in-out;
@@ -214,10 +214,10 @@
                 blackScreen.style.opacity = "1"; // Fade in black screen
 
                 setTimeout(() => {
-                    // window.location.href = "{{ route('welcome') }}";
+                    // window.location.href = "http://127.0.0.1:5500/welcome.html";
                     window.location.href = "https://ladpc4.github.io/supplier-registry/welcome.html";
-                }, 500);
-            }, 2000);
+                }, 2000);
+            }, 1500);
         }
 
         function launchFireworks() {
