@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+/* Fade-in animation */
+.fade-in-body {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+.fade-in-body.visible {
+    opacity: 1;
+}

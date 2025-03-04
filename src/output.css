@@ -7,8 +7,6 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-500: oklch(0.637 0.237 25.331);
-    --color-yellow-500: oklch(0.795 0.184 86.047);
-    --color-green-500: oklch(0.723 0.219 149.579);
     --color-indigo-50: oklch(0.962 0.018 272.314);
     --color-indigo-100: oklch(0.93 0.034 272.788);
     --color-indigo-500: oklch(0.585 0.233 277.117);
@@ -31,8 +29,6 @@
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
     --font-weight-medium: 500;
@@ -497,9 +493,6 @@
   }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .w-1 {
-    width: calc(var(--spacing) * 1);
   }
   .w-1\/2 {
     width: calc(1/2 * 100%);
@@ -1161,9 +1154,6 @@
   .bg-\[var\(--my_variable\)\] {
     background-color: var(--my_variable);
   }
-  .bg-green-500 {
-    background-color: var(--color-green-500);
-  }
   .bg-indigo-600 {
     background-color: var(--color-indigo-600);
   }
@@ -1178,9 +1168,6 @@
   }
   .bg-white {
     background-color: var(--color-white);
-  }
-  .bg-yellow-500 {
-    background-color: var(--color-yellow-500);
   }
   .-bg-conic {
     --tw-gradient-position: in oklab;
@@ -1425,10 +1412,6 @@
   }
   .font-sans {
     font-family: var(--font-sans);
-  }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
   }
   .text-5xl {
     font-size: var(--text-5xl);
@@ -2088,6 +2071,13 @@
       padding-inline: calc(var(--spacing) * 8);
     }
   }
+}
+.fade-in-body {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+.fade-in-body.visible {
+  opacity: 1;
 }
 @property --tw-translate-x {
   syntax: "*";

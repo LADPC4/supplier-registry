@@ -136,25 +136,20 @@
             opacity: 0;
             animation: fireworks 2s linear forwards;
         }
-/*         @keyframes confetti {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(1440deg); opacity: 0; }
-        }
-        .confetti {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: lightcyan;
-            opacity: 0;
-            animation: confetti 4s ease-out forwards;
-        }
-        @keyframes text-pop {
-            0% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { transform: scale(1); }
-        } */
         h1, p {
             animation: text-pop 1.5s ease-out;
+        }
+        .black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -167,8 +162,7 @@
     <div class="countdown" id="countdown"></div>
     <div class="explosion" id="explosion"></div>
     <div class="fireworks" id="fireworks"></div>
-    
-    <img id="screenshot" src="screenshot.PNG" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0; transition: opacity 1.5s ease;">
+    <div class="black-screen" id="blackScreen"></div>
     <script>
         function startCountdown() {
             let countdownElement = document.getElementById('countdown');
@@ -199,42 +193,31 @@
         }
 
         function playFanfare() {
-            // let audio = document.getElementById('fanfare');
-            // let body = document.body;
-            // let explosion = document.getElementById('explosion');
-            // let fireworks = document.getElementById('fireworks');
-            
-            // audio.play();
-            // explosion.classList.add('show-explosion');
-            // launchFireworks();
-            // launchConfetti();
-            
-            // setTimeout(() => {
-            //     body.classList.add('fade-out');
-            //     setTimeout(() => {
-            //         window.location.href = 'http://20.188.121.247/';
-            //     }, 1500);
-            // }, 1500);
-            
             let audio = document.getElementById('fanfare');
-            let body = document.body;
             let explosion = document.getElementById('explosion');
             let fireworks = document.getElementById('fireworks');
+            let blackScreen = document.getElementById('blackScreen');
+            // let body = document.body;
             
             audio.play();
             explosion.classList.add('show-explosion');
             launchFireworks();
-            launchConfetti();
 
-            // After 1.5s, fade in the screenshot
+            // Fade out explosion and fireworks after 3s
             setTimeout(() => {
-                screenshot.style.opacity = "1"; // Fade in the screenshot
-            }, 1500);
- 
-            // After 3s, redirect to the real webpage
+                explosion.style.opacity = "0"; // Fade out explosion
+                fireworks.style.opacity = "0"; // Fade out fireworks
+            }, 3000);
+
+            // Fade in welcome message after explosion fades
             setTimeout(() => {
-                window.location.href = 'https://ladpc4.github.io/supplier-registry/src/welcome.html';
-            }, 5000);
+                blackScreen.style.opacity = "1"; // Fade in black screen
+
+                setTimeout(() => {
+                    // window.location.href = "{{ route('welcome') }}";
+                    window.location.href = "https://ladpc4.github.io/supplier-registry/src/welcome.html";
+                }, 500);
+            }, 2000);
         }
 
         function launchFireworks() {
